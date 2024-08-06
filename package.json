@@ -1,6 +1,6 @@
 {
   "name": "@simrail-sdk/api-core-node",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "SimRail SDK - API Core for Node.JS",
   "repository": {
     "type": "git",

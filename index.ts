@@ -274,7 +274,7 @@ export class Api<ConvertData extends Api.ConvertData = true> {
 export namespace Api {
 
     /** Specifies the version of the API. */
-    export const VERSION: Version = "0.1.2";
+    export const VERSION: Version = "0.1.1";
 
     /** Specifies data from the live data endpoint. */
     export import LiveData  = Types.LiveData;
