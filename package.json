@@ -1,0 +1,27 @@
+{
+  "name": "@simrail-sdk/api-core-node",
+  "version": "0.1.0",
+  "description": "SimRail SDK - API Core for Node.JS",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/simrail-sdk/api-core-node.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "compile": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "simrail",
+    "sdk",
+    "api",
+    "core",
+    "rest"
+  ],
+  "author": "Niek van Bennekom",
+  "license": "See LICENSE.md",
+  "devDependencies": {
+    "@types/node": "^22.1.0",
+    "typescript": "^5.5.4"
+  }
+}
