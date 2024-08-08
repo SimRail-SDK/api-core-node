@@ -1,5 +1,5 @@
 /**
- * ## SimRail SDK - API Core
+ * ## SimRail Core API
  *
  * This file contains the functionality for interacting with the SimRail API
  *   and exports type definitions from submodules for ease-of-use.

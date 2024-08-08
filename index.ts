@@ -1,5 +1,5 @@
 /**
- * ## SimRail SDK - API Core
+ * ## SimRail Core API
  *
  * This file contains the functionality for interacting with the SimRail API
  *   and exports type definitions from submodules for ease-of-use.
@@ -274,7 +274,7 @@ export class Api<ConvertData extends Api.ConvertData = true> {
 export namespace Api {
 
     /** Specifies the version of the API. */
-    export const VERSION: Version = "0.1.1";
+    export const VERSION: Version = "0.1.2";
 
     /** Specifies data from the live data endpoint. */
     export import LiveData  = Types.LiveData;

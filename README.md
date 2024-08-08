@@ -1,8 +1,16 @@
-# SimRail SDK - API Core for Node.JS
+# SimRail Core API for Node.JS
 
-This module contains a lightweight SDK for interacting with the SimRail APIs.
+This is a *Core API module* (community edition) for interacting with the SimRail APIs.
+
+This *Core API module* just provides an interface with SimRail's remote APIs. If you are
+looking for a more usable SDK module, check out:
+- [`@simrail-sdk/api`](https://github.com/simrail-sdk/api "View on GitHub") if you need an SDK just for retrieving live data.
+- [`@simrail-sdk/core`](https://github.com/simrail-sdk/core "View on GitHub") for a more developer-friendly SDK consuming only live data.
+- [`@simrail-sdk/sdk`](https://github.com/simrail-sdk/sdk "View on GitHub") for a developer-friendly SDK providing extended data about the game. ***(upcoming)***
 
 <br/>
+<br/>
+
 
 ## Content index
 
@@ -10,11 +18,11 @@ This module contains a lightweight SDK for interacting with the SimRail APIs.
 
     - [Installation][installation]
 
-- [Examples][examples]
+    - [Examples][examples]
 
-    - [Regular usage example][examples-regular-usage]
+        - [Simple API usage][simple-api-usage]
 
-    - [Disable conversion example][examples-disable-conversion]
+        - [Disable data conversion][disable-data-conversion]
 
 - [API reference][api-reference]
 
@@ -51,14 +59,14 @@ Where `VERSION` specifies the version to install.
 <br/>
 <br/>
 
-## [Examples][examples]
+
+### [Examples][examples]
 
 [examples]: #examples "View Examples"
 
+#### [Simple API usage][simple-api-usage]
 
-### [Regular usage example][examples-regular-usage]
-
-[examples-regular-usage]: #regular-usage-example
+[simple-api-usage]: #simple-api-usage "View Simple API usage"
 
 For regular usage you only need to construct the API class and provide
   it with the endpoint URLs for live data and the timetable.
@@ -66,6 +74,7 @@ For regular usage you only need to construct the API class and provide
 **NOTE**: API SDK will do some simple conversion on data received from
   endpoints to fix typos and enable continuity with other SDK projects.
   To disable this functionality, please refer to the second example below.
+
 
 ```TypeScript
 import Api from "@simrail-sdk/api-core-node";
@@ -167,11 +176,12 @@ api.getTimetable("en1", "446004").then(...);
 <br/>
 <br/>
 
-### [Disable conversion example][examples-disable-conversion]
+#### [Disable data conversion][disable-data-conversion]
 
-[examples-disable-conversion]: #disable-conversion-example
+[disable-data-conversion]: #disable-data-conversion "View Disable data conversion"
 
 Use option `convertData` to enable or disable result conversion. (default: `true`)
+
 
 ```TypeScript
 import Api from "@simrail-sdk/api-core-node";
@@ -244,6 +254,8 @@ new Api({ convertData: true, endpoints }).getActiveStations("en1").then(...);
 
     - [`method Api.getTimetable(serverCode, trainNoLocal)`][api-reference-index.ts~Api.getTimetable1]
 
+    - [`method Api.getTimetable(serverCode, trainNoLocal)`][api-reference-index.ts~Api.getTimetable2]
+
 - [`const VERSION`][api-reference-index.ts~VERSION]
 
 - [`const VMAX`][api-reference-types/liveData/index.ts~VMAX]
@@ -301,6 +313,24 @@ new Api({ convertData: true, endpoints }).getActiveStations("en1").then(...);
     - [`property Endpoints.timetable`][api-reference-index.ts~Endpoints.timetable]
 
 - [`interface Error`][api-reference-types/liveData/index.ts~Error]
+
+- [`interface Raw`][api-reference-types/timetable/index.ts~Raw]
+
+    - [`property Raw.arrivalTime`][api-reference-types/timetable/index.ts~Raw.arrivalTime]
+
+    - [`property Raw.mileage`][api-reference-types/timetable/index.ts~Raw.mileage]
+
+    - [`property Raw.platform`][api-reference-types/timetable/index.ts~Raw.platform]
+
+    - [`property Raw.radioChanels`][api-reference-types/timetable/index.ts~Raw.radioChanels]
+
+    - [`property Raw.stationCategory`][api-reference-types/timetable/index.ts~Raw.stationCategory]
+
+    - [`property Raw.stopType`][api-reference-types/timetable/index.ts~Raw.stopType]
+
+    - [`property Raw.supervisedBy`][api-reference-types/timetable/index.ts~Raw.supervisedBy]
+
+    - [`property Raw.track`][api-reference-types/timetable/index.ts~Raw.track]
 
 - [`interface Server`][api-reference-types/liveData/index.ts~Server]
 
@@ -550,11 +580,17 @@ new Api({ convertData: true, endpoints }).getActiveStations("en1").then(...);
 <br/>
 <br/>
 
-[api-reference-@simrail-sdk/api-node]: @simrail-sdk/api-node "View module \"@simrail-sdk/api-node\""
+[api-reference-@simrail-sdk/api-core-node]: @simrail-sdk/api-core-node "View module \"@simrail-sdk/api-core-node\""
 [api-reference-index]: index "View module \"index\""
-[api-reference-index.ts]: index.ts "View module \"index.ts\""
+[api-reference-index.d.ts]: index.d.ts "View module \"index.d.ts\""
 [api-reference-types/liveData/index.ts]: types/liveData/index.ts "View module \"types/liveData/index.ts\""
 [api-reference-types/timetable/index.ts]: types/timetable/index.ts "View module \"types/timetable/index.ts\""
+[api-reference-index.ts]: index.ts "View module \"index.ts\""
+[api-reference-types]: types "View module \"types\""
+[api-reference-types/liveData]: types/liveData "View module \"types/liveData\""
+[api-reference-types/liveData/index.d.ts]: types/liveData/index.d.ts "View module \"types/liveData/index.d.ts\""
+[api-reference-types/timetable]: types/timetable "View module \"types/timetable\""
+[api-reference-types/timetable/index.d.ts]: types/timetable/index.d.ts "View module \"types/timetable/index.d.ts\""
 
 ### [`class Api`][api-reference-index.ts~Api]&nbsp;&nbsp;&nbsp;[&uarr;][api-reference]
 
@@ -710,6 +746,27 @@ Method to retrieve timetable data from the timetable endpoint.
 
 <br/>
 
+#### [`method Api.getTimetable(serverCode, trainNoLocal)`][api-reference-index.ts~Api.getTimetable2]&nbsp;&nbsp;&nbsp;[&uarr;][api-reference]
+
+[api-reference-index.ts~Api.getTimetable2]: #method-apigettimetableservercode-trainnolocal&nbsp;&nbsp;&nbsp;&uarr; "View method Api.getTimetable()"
+
+Method to retrieve timetable data from the timetable endpoint.
+
+| Arguments: | *Type* | *Optional* | *Description* |
+| ---------- | ------ | ---------- | ------------- |
+| `serverCode` | <code>`string`</code> | No | The unique code of the multiplayer server. |
+| `trainNoLocal` | <code>`string`</code> | Yes | The national train number of a train. If left `undefined`, this function will return data for all trains in the timetable. |
+
+**Returns**:&nbsp;&nbsp;<code><abbr title='Declared in package "typescript"'>`Promise`</abbr>&#60;`ConvertData` extends `false` ? (<u>[`Raw`][api-reference-types/timetable/index.ts~Raw]</u> &#124; <u>[`List`][api-reference-types/timetable/index.ts~List]</u>) : (<u>[`Data`][api-reference-types/timetable/index.ts~Data]</u> &#124; <u>[`List`][api-reference-types/timetable/index.ts~List]</u>)&#62;</code>
+
+**Since**: `0.1.0`
+
+**Definition**:&nbsp;&nbsp;[index.ts:83][api-reference-index.ts]
+
+<br/>
+
+<br/>
+
 <br/>
 
 ### [`const VERSION`][api-reference-index.ts~VERSION]&nbsp;&nbsp;&nbsp;[&uarr;][api-reference]
@@ -722,7 +779,7 @@ Specifies the version of the API.
 
 **Since**: `0.1.0`
 
-**Definition**:&nbsp;&nbsp;[index.ts:270][api-reference-index.ts]
+**Definition**:&nbsp;&nbsp;[index.ts:277][api-reference-index.ts]
 
 <br/>
 <br/>
@@ -808,7 +865,7 @@ Specifies the configuration of the API.
 
 **Since**: `0.1.0`
 
-**Definition**:&nbsp;&nbsp;[index.ts:282][api-reference-index.ts]
+**Definition**:&nbsp;&nbsp;[index.ts:289][api-reference-index.ts]
 
 <br/>
 <br/>
@@ -825,7 +882,7 @@ Specifies if responses are converted or if the raw API response is returned.
 
 **Since**: `0.1.0`
 
-**Definition**:&nbsp;&nbsp;[index.ts:288][api-reference-index.ts]
+**Definition**:&nbsp;&nbsp;[index.ts:295][api-reference-index.ts]
 
 <br/>
 
@@ -843,7 +900,7 @@ Specifies the configuration for API endpoints.
 
 **Since**: `0.1.0`
 
-**Definition**:&nbsp;&nbsp;[index.ts:290][api-reference-index.ts]
+**Definition**:&nbsp;&nbsp;[index.ts:297][api-reference-index.ts]
 
 <br/>
 
@@ -1131,7 +1188,7 @@ Specifies the Steam ID of the player in the raw API format.
 
 **Since**: `0.1.0`
 
-**Definition**:&nbsp;&nbsp;[index.ts:296][api-reference-index.ts]
+**Definition**:&nbsp;&nbsp;[index.ts:303][api-reference-index.ts]
 
 <br/>
 <br/>
@@ -1148,7 +1205,7 @@ Specifies the URL for the live data API endpoint.
 
 **Since**: `0.1.0`
 
-**Definition**:&nbsp;&nbsp;[index.ts:298][api-reference-index.ts]
+**Definition**:&nbsp;&nbsp;[index.ts:305][api-reference-index.ts]
 
 <br/>
 
@@ -1166,7 +1223,7 @@ Specifies the URL for the timetable API endpoint.
 
 **Since**: `0.1.0`
 
-**Definition**:&nbsp;&nbsp;[index.ts:300][api-reference-index.ts]
+**Definition**:&nbsp;&nbsp;[index.ts:307][api-reference-index.ts]
 
 <br/>
 
@@ -1187,6 +1244,151 @@ Specifies a response for a failed request.
 **Definition**:&nbsp;&nbsp;[types/liveData/index.ts:39][api-reference-types/liveData/index.ts]
 
 <br/>
+<br/>
+
+<br/>
+
+### [`interface Raw`][api-reference-types/timetable/index.ts~Raw]&nbsp;&nbsp;&nbsp;[&uarr;][api-reference]
+
+[api-reference-types/timetable/index.ts~Raw]: #interface-raw&nbsp;&nbsp;&nbsp;&uarr; "View interface Raw"
+
+Specifies a timetable entry for a train in the raw API format.
+
+**Extends**:&nbsp;&nbsp;<abbr title='Declared in package "typescript"'>`Omit`</abbr>&#60;<u>[`Timetable`][api-reference-types/timetable/index.ts~Timetable]</u> &#124; `"arrivalTime"` &#124; `"platform"` &#124; `"radioChannels"` &#124; `"stationCategory"` &#124; `"stopType"` &#124; `"supervisedBy"` &#124; `"track"`&#62;
+
+**Since**: `0.1.0`
+
+**Definition**:&nbsp;&nbsp;[types/timetable/index.ts:180][api-reference-types/timetable/index.ts]
+
+<br/>
+<br/>
+
+#### [`property Raw.arrivalTime`][api-reference-types/timetable/index.ts~Raw.arrivalTime]&nbsp;&nbsp;&nbsp;[&uarr;][api-reference]
+
+[api-reference-types/timetable/index.ts~Raw.arrivalTime]: #property-rawarrivaltime&nbsp;&nbsp;&nbsp;&uarr; "View property Raw.arrivalTime"
+
+Specifies when the train arrives at this point in the raw API format.
+
+**Type**:&nbsp;&nbsp;<code><u>[`ArrivalTime`][api-reference-types/timetable/index.ts~ArrivalTime]</u></code>
+
+**Since**: `0.1.0`
+
+**Definition**:&nbsp;&nbsp;[types/timetable/index.ts:182][api-reference-types/timetable/index.ts]
+
+<br/>
+
+<br/>
+
+#### [`property Raw.mileage`][api-reference-types/timetable/index.ts~Raw.mileage]&nbsp;&nbsp;&nbsp;[&uarr;][api-reference]
+
+[api-reference-types/timetable/index.ts~Raw.mileage]: #property-rawmileage&nbsp;&nbsp;&nbsp;&uarr; "View property Raw.mileage"
+
+Specifies at what distance this point will be passed **in kilometers** and in the raw API format.
+
+**Type**:&nbsp;&nbsp;<code>`number`</code>
+
+**Since**: `0.1.0`
+
+**Definition**:&nbsp;&nbsp;[types/timetable/index.ts:184][api-reference-types/timetable/index.ts]
+
+<br/>
+
+<br/>
+
+#### [`property Raw.platform`][api-reference-types/timetable/index.ts~Raw.platform]&nbsp;&nbsp;&nbsp;[&uarr;][api-reference]
+
+[api-reference-types/timetable/index.ts~Raw.platform]: #property-rawplatform&nbsp;&nbsp;&nbsp;&uarr; "View property Raw.platform"
+
+Specifies at which platform the train will stop in Roman numerals in the raw API format.
+
+**Type**:&nbsp;&nbsp;<code><u>[`Platform`][api-reference-types/timetable/index.ts~Platform]</u></code>
+
+**Since**: `0.1.0`
+
+**Definition**:&nbsp;&nbsp;[types/timetable/index.ts:190][api-reference-types/timetable/index.ts]
+
+<br/>
+
+<br/>
+
+#### [`property Raw.radioChanels`][api-reference-types/timetable/index.ts~Raw.radioChanels]&nbsp;&nbsp;&nbsp;[&uarr;][api-reference]
+
+[api-reference-types/timetable/index.ts~Raw.radioChanels]: #property-rawradiochanels&nbsp;&nbsp;&nbsp;&uarr; "View property Raw.radioChanels"
+
+Specifies the radio channels required after this point as a comma-separated string in the raw API format.
+
+**Type**:&nbsp;&nbsp;<code>`string`</code>
+
+**Since**: `0.1.0`
+
+**Definition**:&nbsp;&nbsp;[types/timetable/index.ts:196][api-reference-types/timetable/index.ts]
+
+<br/>
+
+<br/>
+
+#### [`property Raw.stationCategory`][api-reference-types/timetable/index.ts~Raw.stationCategory]&nbsp;&nbsp;&nbsp;[&uarr;][api-reference]
+
+[api-reference-types/timetable/index.ts~Raw.stationCategory]: #property-rawstationcategory&nbsp;&nbsp;&nbsp;&uarr; "View property Raw.stationCategory"
+
+Specifies the category of the station in the raw API format.
+
+**Type**:&nbsp;&nbsp;<code><u>[`StationCategory`][api-reference-types/timetable/index.ts~StationCategory]</u></code>
+
+**Since**: `0.1.0`
+
+**Definition**:&nbsp;&nbsp;[types/timetable/index.ts:198][api-reference-types/timetable/index.ts]
+
+<br/>
+
+<br/>
+
+#### [`property Raw.stopType`][api-reference-types/timetable/index.ts~Raw.stopType]&nbsp;&nbsp;&nbsp;[&uarr;][api-reference]
+
+[api-reference-types/timetable/index.ts~Raw.stopType]: #property-rawstoptype&nbsp;&nbsp;&nbsp;&uarr; "View property Raw.stopType"
+
+Specifies the type of stop the train will make in the raw API format.
+
+**Type**:&nbsp;&nbsp;<code>`string`</code>
+
+**Since**: `0.1.0`
+
+**Definition**:&nbsp;&nbsp;[types/timetable/index.ts:200][api-reference-types/timetable/index.ts]
+
+<br/>
+
+<br/>
+
+#### [`property Raw.supervisedBy`][api-reference-types/timetable/index.ts~Raw.supervisedBy]&nbsp;&nbsp;&nbsp;[&uarr;][api-reference]
+
+[api-reference-types/timetable/index.ts~Raw.supervisedBy]: #property-rawsupervisedby&nbsp;&nbsp;&nbsp;&uarr; "View property Raw.supervisedBy"
+
+Specifies the name of the dispatch station this point belongs to in the raw API format.
+
+**Type**:&nbsp;&nbsp;<code><u>[`SupervisedBy`][api-reference-types/timetable/index.ts~SupervisedBy]</u></code>
+
+**Since**: `0.1.0`
+
+**Definition**:&nbsp;&nbsp;[types/timetable/index.ts:202][api-reference-types/timetable/index.ts]
+
+<br/>
+
+<br/>
+
+#### [`property Raw.track`][api-reference-types/timetable/index.ts~Raw.track]&nbsp;&nbsp;&nbsp;[&uarr;][api-reference]
+
+[api-reference-types/timetable/index.ts~Raw.track]: #property-rawtrack&nbsp;&nbsp;&nbsp;&uarr; "View property Raw.track"
+
+Specifies the number of the track this train will stop at in the raw API format.
+
+**Type**:&nbsp;&nbsp;<code><u>[`Track`][api-reference-types/timetable/index.ts~Track]</u></code>
+
+**Since**: `0.1.0`
+
+**Definition**:&nbsp;&nbsp;[types/timetable/index.ts:204][api-reference-types/timetable/index.ts]
+
+<br/>
+
 <br/>
 
 <br/>
@@ -3149,7 +3351,7 @@ Specifies an API endpoint URL.
 
 **Since**: `0.1.0`
 
-**Definition**:&nbsp;&nbsp;[index.ts:304][api-reference-index.ts]
+**Definition**:&nbsp;&nbsp;[index.ts:311][api-reference-index.ts]
 
 <br/>
 <br/>
@@ -3240,7 +3442,7 @@ Specifies the version of the API.
 
 **Since**: `0.1.0`
 
-**Definition**:&nbsp;&nbsp;[index.ts:307][api-reference-index.ts]
+**Definition**:&nbsp;&nbsp;[index.ts:314][api-reference-index.ts]
 
 <br/>
 <br/>
@@ -3255,14 +3457,15 @@ Package name: `@simrail-sdk/api-core-node`
 
 Author: [Niek van Bennekom](https://github.com/niekvb "View GitHub profile")
 
-Version: `0.1.0`
+Version: `0.1.2`
 
 Repository: [`github:simrail-sdk/api-core-node` (origin)](https://github.com/simrail-sdk/api-core-node.git "View on github")
 
-Keywords: `simrail`, `sdk`, `api`, `rest`.
+Keywords: `simrail`, `sdk`, `core`, `api`, `rest`.
 
-[View open source licenses][view-open-source-licenses]
+[View license][view-license]&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;[view open source licenses][view-open-source-licenses]
 
+[view-license]: ./LICENSE.md "View license"
 [view-open-source-licenses]: ./OSL.md "View open source licenses"
 
 *SCTL version: `0.1.11-dev`*
@@ -3321,9 +3524,9 @@ Dependency tree:
 
 | File type | Number of files | Lines with code | Lines with comments | Blank lines |
 | --------- | --------------- | --------------- | ------------------- | ----------- |
-| Markdown | 3 | 2180 | 0 | 1564 |
-| TypeScript | 4 | 491 | 431 | 52 |
-| JavaScript | 4 | 254 | 4 | 0 |
-| JSON | 3 | 89 | 0 | 1 |
-| YAML | 1 | 23 | 0 | 0 |
-| **All (total)** | **15** | **3037** | **435** | **1617** |
+| Markdown | 3 | 2377 | 0 | 1675 |
+| TypeScript | 8 | 719 | 836 | 95 |
+| JavaScript | 6 | 278 | 6 | 0 |
+| JSON | 3 | 91 | 0 | 1 |
+| YAML | 1 | 44 | 0 | 2 |
+| **All (total)** | **21** | **3509** | **842** | **1773** |

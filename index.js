@@ -231,7 +231,7 @@ class Api {
 }
 exports.Api = Api;
 (function (Api) {
-    Api.VERSION = "0.1.1";
+    Api.VERSION = "0.1.2";
     Api.LiveData = Types.LiveData;
     Api.Timetable = Types.Timetable;
 })(Api || (exports.Api = Api = {}));

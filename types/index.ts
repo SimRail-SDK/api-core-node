@@ -1,5 +1,5 @@
 /**
- * ## SimRail SDK - API Core
+ * ## SimRail Core API
  *
  * This file exports type definitions for the SimRail API.
  *

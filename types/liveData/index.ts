@@ -1,5 +1,5 @@
 /**
- * ## SimRail SDK - API Core
+ * ## SimRail Core API
  *
  * This file contains type definitions for live data of the SimRail API.
  *
